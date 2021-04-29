@@ -1,63 +1,87 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const EventItem = (props) => {
-    
-    let {event, index, handleItemEvent } = props;
+    let { event, index, handleItemEvent } = props;
     let tag = `item#${index}`;
     let eventDate = new Date(event.startDate);
     let start = new Date(event.startDate + " " + event.startTime + "Z");
     let end = new Date(event.endDate + " " + event.endTime + "Z");
-                        
+
     return (
         <ItemStyles
             id={tag}
             key={index}
             class="events__item"
             onClick={() => handleItemEvent(index, "click")}
-            onMouseLeave={() => handleItemEvent(index, "leave")}
+            // onMouseLeave={() => handleItemEvent(index, "leave")}
         >
+            <div class="quick-view">
+                <div class="date-big">
+                    <div class="date-big-start">
+                        <p class="date-big-month">
+                            {eventDate.toLocaleDateString("en", {
+                                month: "short",
+                            })}
+                        </p>
+                        <p class="date-big-day">
+                            {eventDate.getDay().toString().padStart(2, "0")}
+                        </p>
+                    </div>
+                </div>
+                <div class="events__item--left">
+                    <p class="events__name">
+                        {event.name}{" "}
+                        <span class="events__date">
+                            {" -  " + event.location}
+                        </span>
+                    </p>
+                    <p class="events__date">
+                        <label label="label">Going? </label>
+                        <input id="c1" type="checkbox" />
+                    </p>
+                </div>
+                {/* <div class="attend"> */}
+                    <div class="event_type">
+                        {event.type.map((type, i) => {
+                            return (
+                                <div class={`circle --${type}`} key={i}></div>
+                            );
+                        })}
+                    </div>
+                {/* </div> */}
+            </div>
             <div class="events__item--left">
-                <p class="events__name">
-                    {event.name}{" "}
-                    <span class="events__date">{" -  " + event.location}</span>
-                </p>
-                <p class="events__date">{eventDate.toDateString()}</p>
                 <p class="events__description">{event.description}</p>
                 <div class="register">
                     <a href={event.eventLink}>Register</a>
                 </div>
             </div>
-            <div class="attend">
-                <label label="label">Going? </label>
-                <input id="c1" type="checkbox" />
-                <div class="event_type">
-                    {event.type.map((type, i) => {
-                        return <div class={`circle --${type}`} key={i}></div>;
-                    })}
-                </div>
-            </div>
         </ItemStyles>
     );
-}
+};
 
-export default EventItem
+export default EventItem;
 
 const ItemStyles = styled.li`
-
     background: #fff;
     border-left: 8px solid #86d8c9;
     border-radius: 2px;
     -moz-box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
-    padding: 15px 16px;
+    padding: 15px 6px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     /* align-items: center; */
     margin-bottom: 16px;
     height: 50px;
     overflow-y: hidden;
     transition: 0.4s ease-out;
+
+    .quick-view {
+        display: flex;
+        flex-direction: row;
+    }
 
     .events__item--left {
         width: calc(100% - 76px);
@@ -72,6 +96,7 @@ const ItemStyles = styled.li`
         color: #222741;
         display: block;
         margin-bottom: 6px;
+        /* max-width: calc(100% - 13px); */
     }
     .events__date {
         margin-top: 0;
@@ -85,19 +110,40 @@ const ItemStyles = styled.li`
         color: #222741;
         display: block;
         margin-bottom: 6px;
+        margin-left: 3%;
     }
     .event_type {
         margin-top: 10px;
         display: flex;
         justify-content: flex-end;
+        flex-direction: column;
+    }
+
+    .date-big {
+        display: flex;
+        border: 0.5px solid #bbb;
+        width: 60px;
+        height: 45px;
+        margin: 0 3%;
+        text-align: center;
+
+        .date-big-start {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+
+            .date-big-day {
+                font-weight: 500;
+                margin: 1px;
+            }
+            .date-big-month {
+                margin: 1px;
+                font-size: 10px;
+                color: #6b6a6a;
+            }
+        }
     }
     .register {
-        /* body {
-            background: #2f2f31;
-            transform: rotateX(0.003deg);
-            height: 100vh;
-            color: #fff;
-        } */
         position: relative;
         margin: 30px 0;
 
@@ -162,7 +208,7 @@ const ItemStyles = styled.li`
             margin-top: -3.5px;
         }
         label {
-            font-size: 0.8em;
+            font-size: 0.9em;
             font-weight: 500;
         }
         input[type="checkbox"] {
@@ -186,6 +232,7 @@ const ItemStyles = styled.li`
             border: 1px solid var(--bc, var(--border));
             background: var(--b, var(--background));
             transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+            margin-top: -3px;
         }
         input[type="checkbox"]:after {
             content: "";
