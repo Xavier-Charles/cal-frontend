@@ -12,7 +12,7 @@ const EventItem = (props) => {
             id={tag}
             key={index}
             class="events__item"
-            onClick={() => handleItemEvent(index, "click")}
+            onClick={(e) => handleItemEvent(index, "click", e)}
             // onMouseLeave={() => handleItemEvent(index, "leave")}
         >
             <div class="quick-view">
@@ -37,7 +37,7 @@ const EventItem = (props) => {
                     </p>
                     <p class="events__date">
                         <label label="label">Going? </label>
-                        <input id="c1" type="checkbox" />
+                        <input id="input_attend" type="checkbox" />
                     </p>
                 </div>
                 {/* <div class="attend"> */}
@@ -299,6 +299,7 @@ const ItemStyles = styled.li`
             border-radius: 50%;
             display: inline-block;
             margin: 1.5px;
+            cursor: pointer;
         }
         .--Event {
             background: #ff0000;

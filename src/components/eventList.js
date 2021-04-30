@@ -6,7 +6,8 @@ import EventItem from "./eventItem";
 
 const EventList = (props) => {
     // const [focused, setFocused] = useState(false);
-    const handleItemEvent = (i, eventType) => {
+    const handleItemEvent = (i, eventType, e) => {
+        if (e.target.id !== "input_attend"){
         let tag = `item#${i}`;
         let elHeight = document.getElementById(tag)
             ? document.getElementById(tag).scrollHeight
@@ -16,6 +17,8 @@ const EventList = (props) => {
                 ? (document.getElementById(tag).style.height = `${elHeight}px`)
                 : (document.getElementById(tag).style.height = "50px")
             : (document.getElementById(tag).style.height = "50px");
+        }
+        return
     };
 
     return (

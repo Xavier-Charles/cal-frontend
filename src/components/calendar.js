@@ -30,8 +30,8 @@ const CalendarStyles = styled.div`
     padding: 0;
     box-sizing: border-box;
 
-    width: 350px;
-    min-width: 350px;
+    width: 600px;
+    min-width: 600px;
     height: 100%;
 
     -webkit-font-smoothing: antialiased;
