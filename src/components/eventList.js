@@ -24,56 +24,29 @@ const EventList = (props) => {
     return (
         <EventStyles>
             <div class="events-container">
-                <span class="events__title">Upcoming events this month</span>
+                <p
+                    className="events__add"
+                    onClick={() => props.setShowModal(true)}
+                >
+                    Add Event
+                </p>
+                <span class="events__title">Upcoming events this month </span>
                 <ul class="events__list">
                     {dummyEventsList.map((e, i) => {
                         let tag = `item#${i}`;
                         let eventDate = new Date(e.startDate);
-                        let start = new Date(e.startDate + " " + e.startTime + "Z");
+                        let start = new Date(
+                            e.startDate + " " + e.startTime + "Z"
+                        );
                         let end = new Date(e.endDate + " " + e.endTime + "Z");
                         return (
-                            <EventItem event={e} index={i} handleItemEvent={handleItemEvent}/>);
+                            <EventItem
+                                event={e}
+                                index={i}
+                                handleItemEvent={handleItemEvent}
+                            />
+                        );
                     })}
-                </ul>
-            </div>
-            <div class="events-container">
-                <span class="events__title">Upcoming events this month</span>
-                <ul class="events__list">
-                    <li class="events__item">
-                        <div class="events__item--left">
-                            <span class="events__name">
-                                Kucoin Listing (ETH2)
-                            </span>
-                            <span class="events__date">Apr 24</span>
-                        </div>
-                        <span class="events__tag">ICO</span>
-                    </li>
-                    <li class="events__item">
-                        <div class="events__item--left">
-                            <span class="events__name">EthCC</span>
-                            <span class="events__date">Apr 25</span>
-                        </div>
-                        <span class="events__tag events__tag--danger">
-                            Event
-                        </span>
-                    </li>
-                    <li class="events__item">
-                        <div class="events__item--left">
-                            <span class="events__name">
-                                GV Funds on Ethereum
-                            </span>
-                            <span class="events__date">Apr 27 - Apr 28</span>
-                        </div>
-                        <span class="events__tag events__tag--highlighted">
-                            All day
-                        </span>
-                    </li>
-                    <li class="events__item">
-                        <div class="events__item--left">
-                            <span class="events__name">Rainbow Bridge</span>
-                            <span class="events__date">Apr 29 - Apr 30</span>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </EventStyles>
@@ -87,7 +60,7 @@ const EventStyles = styled.div`
     padding: 0;
     box-sizing: border-box;
 
-    width: 350px;
+    width: 20vw;
     min-width: 350px;
     height: 100%;
 
@@ -95,20 +68,32 @@ const EventStyles = styled.div`
     font-family: "Montserrat", sans-serif;
     text-rendering: optimizeLegibility;
     background: #fcfcfc;
+    margin: 1vw 0;
 
     .events-container {
         padding: 0 15px;
+        height: 64.9vh;
+        overflow: auto;
+        min-height: 520px;
     }
 
     .events__title {
         color: #bec1ca;
         display: inline-block;
-        font-size: 14px;
+        font-size: 18px;
         font-weight: 600;
-        margin-bottom: 16px;
+        margin-bottom: 1vw;
+        margin-top: 0;
     }
     .events__list {
         padding: 0;
+    }
+    .events__add {
+        background: #e5efe9;
+        border: 1px solid #5a72b5;
+        border-radius: 4px;
+        padding: 2px 4px;
+        float: right;
     }
     /* .events__tag {
         background: #66dcec;

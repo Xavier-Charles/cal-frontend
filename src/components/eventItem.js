@@ -64,7 +64,7 @@ export default EventItem;
 
 const ItemStyles = styled.li`
     background: #fff;
-    border-left: 8px solid #86d8c9;
+    border-left: 8px solid #00c4cc;
     border-radius: 2px;
     -moz-box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
@@ -151,13 +151,13 @@ const ItemStyles = styled.li`
             position: absolute;
             left: 30%;
             transform: translate(-50%, -50%);
-            color: #86d8c9;
+            color: #00c4cc;
             text-decoration: none;
             font-size: 0.8em;
             display: inline-block;
             text-transform: uppercase;
             padding: 0.5em 2em;
-            border: 2px solid #86d8c9;
+            border: 2px solid #00c4cc;
             transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
         }
         a::before {
@@ -168,7 +168,7 @@ const ItemStyles = styled.li`
             left: 0;
             right: 100%;
             bottom: 0;
-            background: #86d8c9;
+            background: #00c4cc;
             transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1),
                 left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
             z-index: -1;
@@ -212,11 +212,11 @@ const ItemStyles = styled.li`
             font-weight: 500;
         }
         input[type="checkbox"] {
-            --active: #86d8c9;
+            --active: #00c4cc;
             --active-inner: #fff;
             --focus: 1.5px rgba(39, 94, 254, 0.3);
             --border: #bbc1e1;
-            --border-hover: #86d8c9;
+            --border-hover: #00c4cc;
             --background: #fff;
             --disabled: #f6f8ff;
             --disabled-inner: #e1e6f9;

@@ -16,7 +16,8 @@ const CalendarComponent = (props) => {
                     events={dummyEventsList}
                     startAccessor="start"
                     endAccessor="end"
-                    style={{ height: 500 }}
+                    style={{ height: "65vh"}}
+                    views={["month"]}
                 />
             </div>
         </CalendarStyles>
@@ -30,7 +31,7 @@ const CalendarStyles = styled.div`
     padding: 0;
     box-sizing: border-box;
 
-    width: 600px;
+    width: 40vw;
     min-width: 600px;
     height: 100%;
 
@@ -38,4 +39,16 @@ const CalendarStyles = styled.div`
     font-family: "Montserrat", sans-serif;
     text-rendering: optimizeLegibility;
     background: #fcfcfc;
+    margin: 1vw 0;
+
+    .rbc-event {
+        background-color: #00c4cc;
+    }
+    .rbc-toolbar-level {
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+    .rbc-toolbar span button {
+        font-size: 1rem;
+    }
 `;
