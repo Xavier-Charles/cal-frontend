@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const EventType = ({ type, key }) => (
-  <div class={`hover-trigger  circle --${type}`} key={key}>
+const EventType = ({ type, i }) => (
+  <div class={`hover-trigger  circle --${type}`} key={i}>
     <div class="hover-target hidden relative mr-1">
       <div class="absolute -right-1.5 w-max bg-black text-white text-xs rounded py-1 px-4 bottom-full">
         {type}
@@ -23,8 +23,8 @@ const EventItem = (props) => {
   let { event, index, handleItemEvent } = props;
   let tag = `item#${index}`;
   let eventDate = new Date(event.startDate);
-  let start = new Date(event.startDate + " " + event.startTime + "Z");
-  let end = new Date(event.endDate + " " + event.endTime + "Z");
+//   let start = new Date(event.startDate + " " + event.startTime + "Z");
+//   let end = new Date(event.endDate + " " + event.endTime + "Z");
 
   return (
     <ItemStyles
@@ -60,7 +60,7 @@ const EventItem = (props) => {
         {/* <div class="attend"> */}
         <div class="event_type">
           {event.type.map((type, i) => {
-            return <EventType type={type} key={i} />;
+            return <EventType type={type} i={i} />;
           })}
         </div>
         {/* </div> */}
@@ -89,7 +89,7 @@ const ItemStyles = styled.li`
   flex-direction: column;
   /* align-items: center; */
   margin-bottom: 16px;
-  height: 50px;
+  height: 70px;
   overflow-y: hidden;
   transition: 0.4s ease-out;
 

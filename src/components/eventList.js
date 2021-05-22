@@ -22,34 +22,36 @@ const EventList = (props) => {
     };
 
     return (
-        <EventStyles>
-            <div class="events-container">
-                <p
-                    className="events__add"
-                    onClick={() => props.setShowModal(true)}
-                >
-                    Add Event
-                </p>
-                <span class="events__title">Upcoming events this month </span>
-                <ul class="events__list">
-                    {dummyEventsList.map((e, i) => {
-                        let tag = `item#${i}`;
-                        let eventDate = new Date(e.startDate);
-                        let start = new Date(
-                            e.startDate + " " + e.startTime + "Z"
-                        );
-                        let end = new Date(e.endDate + " " + e.endTime + "Z");
-                        return (
-                            <EventItem
-                                event={e}
-                                index={i}
-                                handleItemEvent={handleItemEvent}
-                            />
-                        );
-                    })}
-                </ul>
-            </div>
-        </EventStyles>
+      <EventStyles>
+        <div class="py-0 h-4/6 px-3.5 overflow-auto">
+          <p
+            className="bg-emerald-50 border-blue-500 border-1 rounded px-1 py-0.5 float-right"
+            onClick={() => props.setShowModal(true)}
+          >
+            Add Event
+          </p>
+          <span class="inline-block blueGray-300 font-bold text-lg mt-0 mb-5">
+            Upcoming events this month{" "}
+          </span>
+          <ul class="p-0">
+            {dummyEventsList.map((e, i) => {
+              // let tag = `item#${i}`;
+              // let eventDate = new Date(e.startDate);
+              // let start = new Date(
+              //     e.startDate + " " + e.startTime + "Z"
+              // );
+              // let end = new Date(e.endDate + " " + e.endTime + "Z");
+              return (
+                <EventItem
+                  event={e}
+                  index={i}
+                  handleItemEvent={handleItemEvent}
+                />
+              );
+            })}
+          </ul>
+        </div>
+      </EventStyles>
     );
 };
 
@@ -59,6 +61,7 @@ const EventStyles = styled.div`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    flex-grow:1;
 
     width: 20vw;
     min-width: 350px;
@@ -69,51 +72,5 @@ const EventStyles = styled.div`
     text-rendering: optimizeLegibility;
     background: #fcfcfc;
     margin: 1vw 0;
-
-    .events-container {
-        padding: 0 15px;
-        height: 64.9vh;
-        overflow: auto;
-        min-height: 520px;
-    }
-
-    .events__title {
-        color: #bec1ca;
-        display: inline-block;
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 1vw;
-        margin-top: 0;
-    }
-    .events__list {
-        padding: 0;
-    }
-    .events__add {
-        background: #e5efe9;
-        border: 1px solid #5a72b5;
-        border-radius: 4px;
-        padding: 2px 4px;
-        float: right;
-    }
-    /* .events__tag {
-        background: #66dcec;
-        border: 2px solid #fefefe;
-        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-        color: #fff;
-        font-size: 10px;
-        font-weight: 600;
-        width: 60px;
-        margin-left: 16px;
-        padding: 5px 2px;
-        text-align: center;
-    }
-    .events__tag--highlighted {
-        background: #fdca40;
-    }
-    .events__tag--danger {
-        background: #fd7440;
-    } */
+   
 `;
