@@ -15,8 +15,8 @@ const EventList = (props) => {
         eventType === "click"
             ? document.getElementById(tag).clientHeight !== elHeight
                 ? (document.getElementById(tag).style.height = `${elHeight}px`)
-                : (document.getElementById(tag).style.height = "50px")
-            : (document.getElementById(tag).style.height = "50px");
+                : (document.getElementById(tag).style.height = "80px")
+            : (document.getElementById(tag).style.height = "80px");
         }
         return
     };
@@ -25,7 +25,7 @@ const EventList = (props) => {
       <EventStyles>
         <div class="py-0 h-4/6 px-3.5 overflow-auto">
           <p
-            className="bg-emerald-50 border-blue-500 border-1 rounded px-1 py-0.5 float-right"
+            className="bg-emerald-50 border-cyan border-1 rounded px-1 py-0.5 float-right"
             onClick={() => props.setShowModal(true)}
           >
             Add Event
