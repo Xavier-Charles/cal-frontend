@@ -22,22 +22,32 @@ const EventType = ({ type, i }) => (
 const EventItem = (props) => {
   let { event, index, handleItemEvent } = props;
   let tag = `item#${index}`;
-  let eventDate = new Date(event.startDate);
-  //   let start = new Date(event.startDate + " " + event.startTime + "Z");
-  //   let end = new Date(event.endDate + " " + event.endTime + "Z");
+  let start = new Date(event.startDate)
+  let startDate = `${start.toLocaleString("default", {
+    month: "short",
+  })} ${start.getDate()}' ${start.getFullYear().toString().substr(-2)}`;
+  let end = new Date(event.endDate);
 
+  let endDate = `${end.toLocaleString("default", {
+    month: "short",
+  })} ${end.getDate()}' ${end.getFullYear().toString().substr(-2)}`;  //   let start = new Date(event.startDate + " " + event.startTime + "Z");
   return (
     <ItemStyles>
       <article
         id={tag}
         key={index}
-        onClick={(e) => handleItemEvent(index, "click", e)}
+        // onClick={(e) => handleItemEvent(index, "click", e)}
         class="border-l-8 mx-auto border-cyan rounded-lg shadow-md md:p-4 bg-white sm:py-3 py-4 px-2 mb-10"
       >
+        <div class="flex flex-row col-span-2 absolute right-14">
+          {[...new Set(event.type)].map((type, i) => {
+            return <EventType type={type} i={i} />;
+          })}
+        </div>
         <div role="presentation">
           <div>
             <div class="m-2">
-              <div class="grid grid-cols-12">
+              <div class="grid grid-cols-12 mt-3">
                 <div class="col-span-2">
                   <img
                     class="rounded-md w-12"
@@ -46,54 +56,54 @@ const EventItem = (props) => {
                     loading="lazy"
                   />
                 </div>
-                <h2 class="text-2xl font-bold self-end leading-7 col-span-8">
+                <h2 class="text-2xl font-bold self-end leading-7 col-span-10">
                   <a href="" id="article-link-151230">
                     {event.name}
                   </a>
                 </h2>
-                <div class="event_type flex flex-col col-span-2">
-                  {event.type.map((type, i) => {
-                    return <EventType type={type} i={i} />;
+              </div>
+              <div class="flex flex-col my-2">
+                <div class="flex">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-clock"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    strokWidth="1.5"
+                    stroke="#2c3e50"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="12" cy="12" r="9" />
+                    <polyline points="12 7 12 12 15 15" />
+                  </svg>
+                  <span class="ml-2 text text-gray-700 text-sm hover:text-black">
+                    <time>{`${startDate}${
+                      endDate === startDate ? "" : " - " + endDate
+                    }`}</time>
+                  </span>
+                </div>
+
+                <div>
+                  {[...new Set(event.tag)]?.map((tag, i) => {
+                    return (
+                      <a
+                        href="/t/react"
+                        class="text-sm text-gray-600 p-1 hover:text-black"
+                        key={i}
+                      >
+                        <span class="text-opacity-50">#</span>
+                        {tag.toLowerCase()}
+                      </a>
+                    );
                   })}
                 </div>
               </div>
-              <div class="flex my-2">
-                {/* {event.tag?.map((tag, i) => {
-                  return (
-                    <a
-                      href="/t/react"
-                      class="text-sm text-gray-600 p-1 hover:text-black"
-                      key={i}
-                    >
-                      <span class="text-opacity-50">#</span>
-                      {tag.toLowerCase()}
-                    </a>
-                  );
-                })} */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-clock"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="#2c3e50"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <circle cx="12" cy="12" r="9" />
-                  <polyline points="12 7 12 12 15 15" />
-                </svg>
-                <span class="ml-2 text text-gray-700 text-sm hover:text-black">
-                  <time datetime="2019-08-02T13:58:42.196Z">Aug 2 '21 </time>
-                </span>
-              </div>
-              <div class="mb-1 leading-6">
-                {event.description}
-              </div>
-              <div class="flex justify-between items-center mt-4">
+              <div class="mb-1 leading-6">{event.description}</div>
+              <div class="flex flex-col items-start mt-4">
                 <div class="flex">
                   <a
                     href=""
@@ -133,17 +143,19 @@ const EventItem = (props) => {
                       <line x1="10" y1="16" x2="14" y2="16" />
                       <line x1="12" y1="14" x2="12" y2="18" />
                     </svg>
-                    <span class="mx-1 hidden md:inline">&nbsp; 20 Attending?</span>
+                    <span class="mx-1 hidden md:inline">
+                      &nbsp; 20 Attending?
+                    </span>
                   </a>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center mt-5">
                   {/* <button
                   type="button"
                   class="bg-gray-400 rounded text-sm px-3 py-2 text-current hover:text-black hover:bg-gray-500"
                 >
                   <span>Save</span>
                 </button> */}
-                  <div class="register">
+                  <div class="register mb-4">
                     <a href={event.eventLink}>Register</a>{" "}
                   </div>
                 </div>
@@ -153,51 +165,6 @@ const EventItem = (props) => {
         </div>
       </article>
     </ItemStyles>
-    // <ItemStyles
-    //   id={tag}
-    //   key={index}
-    //   class="events__item"
-    //   onClick={(e) => handleItemEvent(index, "click", e)}
-    //   // onMouseLeave={() => handleItemEvent(index, "leave")}
-    // >
-    //   <div class="quick-view mb-3">
-    //     <div class="date-big">
-    //       <div class="date-big-start">
-    //         <p class="date-big-month">
-    //           {eventDate.toLocaleDateString("en", {
-    //             month: "short",
-    //           })}
-    //         </p>
-    //         <p class="date-big-day">
-    //           {eventDate.getDay().toString().padStart(2, "0")}
-    //         </p>
-    //       </div>
-    //     </div>
-    //     <div class="events__item--left">
-    //       <p class="events__name">
-    //         {event.name}{" "}
-    //         <span class="events__date">{" -  " + event.location}</span>
-    //       </p>
-    //       <p class="events__date">
-    //         <label label="label">Going? </label>
-    //         <input id="input_attend" type="checkbox" />
-    //       </p>
-    //     </div>
-    //     {/* <div class="attend"> */}
-    //     <div class="event_type flex flex-col">
-    //       {event.type.map((type, i) => {
-    //         return <EventType type={type} i={i} />;
-    //       })}
-    //     </div>
-    //     {/* </div> */}
-    //   </div>
-    //   <div class="events__item--left">
-    //     <p class="events__description">{event.description}</p>
-    //     <div class="register">
-    //       <a href={event.eventLink}>Register</a>
-    //     </div>
-    //   </div>
-    // </ItemStyles>
   );
 };
 
@@ -282,8 +249,8 @@ const ItemStyles = styled.li`
 
     a {
       position: absolute;
-      left: -5rem;
-      /* left: 0; */
+      left: 4rem;
+      margin-top: 0.5rem;
       transform: translate(-50%, -50%);
       color: #00c4cc;
       text-decoration: none;

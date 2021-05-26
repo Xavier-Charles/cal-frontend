@@ -40,10 +40,7 @@ export default function Modal(props) {
                             <form class="event-form">
                                 <input type="text" placeholder="Event Name" />
                                 <input type="text" placeholder="Registration Link" />
-                                <input
-                                    type="text"
-                                    placeholder="Event Description"
-                                />
+                                <input type="text" placeholder="Event Description" />
                                 <button>Send</button>
                             </form>
 

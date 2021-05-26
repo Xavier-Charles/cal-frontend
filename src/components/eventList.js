@@ -22,55 +22,48 @@ const EventList = (props) => {
     };
 
     return (
-      <EventStyles>
-        <div class="py-0 h-4/6 px-3.5 overflow-auto">
-          <p
-            className="bg-emerald-50 border-cyan border-1 rounded px-1 py-0.5 float-right"
-            onClick={() => props.setShowModal(true)}
-          >
-            Add Event
-          </p>
-          <span class="inline-block blueGray-300 font-bold text-lg mt-0 mb-5">
-            Upcoming events this month{" "}
-          </span>
-          <ul class="p-0">
-            {dummyEventsList.map((e, i) => {
-              // let tag = `item#${i}`;
-              // let eventDate = new Date(e.startDate);
-              // let start = new Date(
-              //     e.startDate + " " + e.startTime + "Z"
-              // );
-              // let end = new Date(e.endDate + " " + e.endTime + "Z");
-              return (
-                <EventItem
-                  event={e}
-                  index={i}
-                  handleItemEvent={handleItemEvent}
-                />
-              );
-            })}
-          </ul>
-        </div>
-      </EventStyles>
+      // <EventStyles>
+      <div class="col-span-4 py-0 h-4/6 px-3.5">
+        {/* <p
+          className="bg-emerald-50 border-cyan border-1 rounded px-1 py-0.5 float-right"
+          onClick={() => props.setShowModal(true)}
+        >
+          Add Event
+        </p> */}
+        {/* <button
+          class="bg-cerise hover:bg-cerise-dark text-white font-bold py-2 px-4 rounded float-right"
+          onClick={() => props.setShowModal(true)}
+        >
+          Add Event
+        </button> */}
+        <button class="bg-cerise hover:bg-cerise-dark float-right inline-block px-6 py-1 text-xs font-medium leading-6 text-center text-white uppercase transition rounded shadow ripple hover:shadow-lg focus:outline-none">
+          Add Event
+        </button>
+        <span class="inline-block blueGray-300 font-bold text-lg mt-0 mb-5">
+          Upcoming events{" "}
+        </span>
+        <ul class="p-0">
+          {dummyEventsList.map((e, i) => {
+            // let tag = `item#${i}`;
+            // let eventDate = new Date(e.startDate);
+            // let start = new Date(
+            //     e.startDate + " " + e.startTime + "Z"
+            // );
+            // let end = new Date(e.endDate + " " + e.endTime + "Z");
+            return (
+              <EventItem
+                event={e}
+                index={i}
+                handleItemEvent={handleItemEvent}
+              />
+            );
+          })}
+        </ul>
+      </div>
+      // </EventStyles>
     );
 };
 
 export default EventList;
 
-const EventStyles = styled.div`
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    flex-grow:1;
 
-    width: 20vw;
-    min-width: 350px;
-    height: 100%;
-
-    -webkit-font-smoothing: antialiased;
-    font-family: "Montserrat", sans-serif;
-    text-rendering: optimizeLegibility;
-    background: #fcfcfc;
-    margin: 1vw 0;
-   
-`;
