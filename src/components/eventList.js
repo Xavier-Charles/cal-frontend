@@ -1,10 +1,9 @@
 import React from "react";
-import dummyEventsList from "../data/events";
-import styled from "styled-components";
 import EventItem from "./eventItem";
 
 
 const EventList = (props) => {
+  console.log(props);
     // const [focused, setFocused] = useState(false);
     const handleItemEvent = (i, eventType, e) => {
         if (e.target.id !== "input_attend"){
@@ -23,7 +22,7 @@ const EventList = (props) => {
 
     return (
       // <EventStyles>
-      <div class="col-span-4 py-0 h-4/6 px-3.5">
+      <div class="mt-8 lg:mt-0 col-span-4 py-0 h-4/6 p-0 lg:px-3.5">
         {/* <p
           className="bg-emerald-50 border-cyan border-1 rounded px-1 py-0.5 float-right"
           onClick={() => props.setShowModal(true)}
@@ -36,29 +35,36 @@ const EventList = (props) => {
         >
           Add Event
         </button> */}
-        <button class="bg-cerise hover:bg-cerise-dark float-right inline-block px-6 py-1 text-xs font-medium leading-6 text-center text-white uppercase transition rounded shadow ripple hover:shadow-lg focus:outline-none">
-          Add Event
-        </button>
-        <span class="inline-block blueGray-300 font-bold text-lg mt-0 mb-5">
-          Upcoming events{" "}
-        </span>
-        <ul class="p-0">
-          {dummyEventsList.map((e, i) => {
-            // let tag = `item#${i}`;
-            // let eventDate = new Date(e.startDate);
-            // let start = new Date(
-            //     e.startDate + " " + e.startTime + "Z"
-            // );
-            // let end = new Date(e.endDate + " " + e.endTime + "Z");
-            return (
-              <EventItem
-                event={e}
-                index={i}
-                handleItemEvent={handleItemEvent}
-              />
-            );
-          })}
-        </ul>
+        <div class="mt-0 mb-10">
+          <button
+            onClick={() => props.setShowModal(true)}
+            class="bg-cerise hover:bg-cerise-dark float-left lg:float-right inline-block px-6 py-1 text-xs font-medium leading-6 text-center text-white uppercase transition rounded shadow ripple hover:shadow-lg focus:outline-none"
+          >
+            Add An Event
+          </button>
+          {/* <span class="inline-block blueGray-300 font-bold text-lg mt-0 mb-3.5">
+            Upcoming events{" "}
+          </span> */}
+        </div>
+        <div class="cstm-hide-scroll cstm-h500 lg:overflow-y-scroll">
+          <ul class="p-0">
+            {props.events.map((e, i) => {
+              // let tag = `item#${i}`;
+              // let eventDate = new Date(e.startDate);
+              // let start = new Date(
+              //     e.startDate + " " + e.startTime + "Z"
+              // );
+              // let end = new Date(e.endDate + " " + e.endTime + "Z");
+              return (
+                <EventItem
+                  event={e}
+                  index={i}
+                  handleItemEvent={handleItemEvent}
+                />
+              );
+            })}
+          </ul>
+        </div>
       </div>
       // </EventStyles>
     );

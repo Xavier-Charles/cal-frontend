@@ -30,7 +30,6 @@ const CalendarComponent = (props) => {
       ...rest,
     })
   );
-  console.log(events);
 
   return (
     <div class="col-span-8">
@@ -39,11 +38,9 @@ const CalendarComponent = (props) => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: "500px" }}
+        style={{ height: "34.5rem" }}
         views={["month"]}
         eventPropGetter={eventStyleGetter}
-        messages={{
-              showMore: (events, date) => console.log(events, date)}}
       />
     </div>
   );

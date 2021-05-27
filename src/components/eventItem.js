@@ -1,8 +1,9 @@
+import React, { useState } from 'react';
 import styled from "styled-components";
 
 const EventType = ({ type, i }) => (
-  <div class={`hover-trigger  circle --${type}`} key={i}>
-    <div class="hover-target hidden relative mr-1">
+  <div class={`cstm-hover-trigger circle --${type}`} key={i}>
+    <div class="cstm-hover-target hidden relative mr-1">
       <div class="absolute -right-1.5 w-max bg-black text-white text-xs rounded py-1 px-4 bottom-full">
         {type}
         <svg
@@ -20,26 +21,38 @@ const EventType = ({ type, i }) => (
 );
 
 const EventItem = (props) => {
-  let { event, index, handleItemEvent } = props;
-  let tag = `item#${index}`;
-  let start = new Date(event.startDate)
-  let startDate = `${start.toLocaleString("default", {
+  const [attend, setAttend] = useState(false)
+  const [upvote, setUpvote] = useState(false);
+  const { event, index, handleItemEvent } = props;
+  
+  const handleAttend = (bool) => {
+    setAttend(bool)
+  }
+  const handleUpvote = (bool) => {
+    setUpvote(bool)
+  };
+  
+  const tag = `item#${index}`;
+  const start = new Date(event.startDate)
+  const end = new Date(event.endDate);
+  const startDate = `${start.toLocaleString("default", {
     month: "short",
-  })} ${start.getDate()}' ${start.getFullYear().toString().substr(-2)}`;
-  let end = new Date(event.endDate);
-
-  let endDate = `${end.toLocaleString("default", {
+  })} ${start.getDate()}' ${start.getFullYear().toString().substr(-2)}`
+  const endDate = `${end.toLocaleString("default", {
     month: "short",
   })} ${end.getDate()}' ${end.getFullYear().toString().substr(-2)}`;  //   let start = new Date(event.startDate + " " + event.startTime + "Z");
+  
   return (
     <ItemStyles>
       <article
         id={tag}
         key={index}
         // onClick={(e) => handleItemEvent(index, "click", e)}
-        class="border-l-8 mx-auto border-cyan rounded-lg shadow-md md:p-4 bg-white sm:py-3 py-4 px-2 mb-10"
+        class={`border-l-8 mx-auto ${
+          attend ? "border-cerise" : "border-cyan"
+        } rounded-lg shadow-md md:p-4 bg-white sm:py-3 py-4 px-2 mb-10`}
       >
-        <div class="flex flex-row col-span-2 absolute right-14">
+        <div class="flex flex-row justify-end col-span-2 right-14">
           {[...new Set(event.type)].map((type, i) => {
             return <EventType type={type} i={i} />;
           })}
@@ -105,23 +118,34 @@ const EventItem = (props) => {
               <div class="mb-1 leading-6">{event.description}</div>
               <div class="flex flex-col items-start mt-4">
                 <div class="flex">
-                  <a
-                    href=""
-                    class="py-1 pl-1 pr-2 text-gray-600 text-sm rounded hover:bg-gray-100 hover:text-black"
+                  <button
+                    onClick={() => handleUpvote(!upvote)}
+                    class={`${
+                      upvote
+                        ? "bg-cerise text-white mr-1"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-black"
+                    } py-1 pl-1 pr-2 focus:outline-none text-sm rounded`}
                   >
                     <svg
                       class="inline fill-current"
                       width="20"
                       height="20"
+                      fill={upvote ? "#F61067" : "none"}
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path d="M18.884 12.595l.01.011L12 19.5l-6.894-6.894.01-.01A4.875 4.875 0 0112 5.73a4.875 4.875 0 016.884 6.865zM6.431 7.037a3.375 3.375 0 000 4.773L12 17.38l5.569-5.569a3.375 3.375 0 10-4.773-4.773L9.613 10.22l-1.06-1.062 2.371-2.372a3.375 3.375 0 00-4.492.25v.001z"></path>
                     </svg>
-                    <span class="mx-1 hidden md:inline">&nbsp;195 Upvote</span>
-                  </a>
-                  <a
-                    href=""
-                    class="py-1 pl-1 pr-2 text-gray-600 text-sm rounded hover:bg-gray-100 hover:text-black"
+                    <span class="mx-1 hidden md:inline">
+                      &nbsp;195 {upvote ? "Upvoted" : "Upvote"}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => handleAttend(!attend)}
+                    class={`${
+                      attend
+                        ? "bg-cerise text-white ml-1"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-black"
+                    } py-1 pl-1 pr-2 focus:outline-none text-sm rounded `}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +154,7 @@ const EventItem = (props) => {
                       height="20"
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
-                      stroke="#2c3e50"
+                      stroke={attend ? "#fff" : "#2c3e50"}
                       fill="none"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -144,9 +168,10 @@ const EventItem = (props) => {
                       <line x1="12" y1="14" x2="12" y2="18" />
                     </svg>
                     <span class="mx-1 hidden md:inline">
-                      &nbsp; 20 Attending?
+                      {/* count attending */}
+                      &nbsp; {attend ? "Attending" : "Attend"}
                     </span>
-                  </a>
+                  </button>
                 </div>
                 <div class="flex items-center mt-5">
                   {/* <button
@@ -155,7 +180,9 @@ const EventItem = (props) => {
                 >
                   <span>Save</span>
                 </button> */}
-                  <div class="register mb-4">
+                  <div
+                    class={`${upvote ? "register-upvote" : ""} register my-4`}
+                  >
                     <a href={event.eventLink}>Register</a>{" "}
                   </div>
                 </div>
