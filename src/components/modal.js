@@ -50,6 +50,7 @@ export default function Modal(props) {
                 <a href="#!" class="outside-trigger"></a>
             </div>
         </ModalStyle>
+        
     );
 }
 
